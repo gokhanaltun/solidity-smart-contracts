@@ -44,7 +44,7 @@ contract OwnerMintERC721 is ERC721, Ownable {
      * @return The base URI for token IDs.
      */
     function _baseURI() internal pure override returns (string memory) {
-        return "YOUR_BASE_URI_HERE"; // Example: "ipfs://CID"
+        return "YOUR_BASE_URI_HERE"; // Example: "ipfs://CID/"
     }
 
     /**
