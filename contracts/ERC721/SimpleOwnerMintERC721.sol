@@ -17,7 +17,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
  * @title OwnerMintERC721
  * @dev A contract to facilitate owner minting of ERC721 tokens.
  */
-contract OwnerMintERC721 is ERC721, Ownable {
+contract SimpleOwnerMintERC721 is ERC721, Ownable {
 
     /**
      * @dev Constructor to initialize the ERC721 token with a name and symbol.
