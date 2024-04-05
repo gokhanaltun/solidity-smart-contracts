@@ -1,1 +1,1 @@
-# Solidity Smart Contract Examples
+# Solidity Smart Contracts
