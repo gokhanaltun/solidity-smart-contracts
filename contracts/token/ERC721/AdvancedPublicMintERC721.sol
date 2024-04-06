@@ -1,6 +1,7 @@
 /**
  * WARNING: This contract is currently in development and all tests have not yet been completed.
  * Therefore, it is not recommended to use it in production environments.
+ * The contract starts minting NFTs with ID = 1. You should adjust your NFT metadata files accordingly.
  */
 
 // SPDX-License-Identifier: MIT
@@ -94,7 +95,7 @@ contract AdvancedPublicMintERC721 is
 
     /**
      * @dev Sets the amount per mint for this contract.
-     * @param amount_ The mint amount to set.
+     * @param amount_ The mint amount to set. format: wei
      */
     function setMintAmount(uint256 amount_) external onlyOwner {
         mintAmount = amount_;
