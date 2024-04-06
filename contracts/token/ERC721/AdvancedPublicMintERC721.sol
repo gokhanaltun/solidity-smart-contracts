@@ -4,7 +4,7 @@
  */
 
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -46,8 +46,8 @@ contract AdvancedPublicMintERC721 is
     ) public payable maxMintCountCheck maxMintCountPerAddressCheck {
         _paymentMustBeEqualToExpectedPaymentAmount(mintAmount);
         _incrementCurrentMintCount();
-        _updatemintedTokensByAddress();
-        _safeMint(to_, _getCurrentMintCount());
+        _updateMintedTokensByAddress();
+        _safeMint(to_, getCurrentMintCount());
     }
 
     /**
@@ -98,27 +98,6 @@ contract AdvancedPublicMintERC721 is
      */
     function setMintAmount(uint256 amount_) external onlyOwner {
         mintAmount = amount_;
-    }
-
-    /**
-     * @dev see {ERC721LimitableMint.sol}
-     */
-    function currentMintCount() external view onlyOwner returns (uint256) {
-        return _getCurrentMintCount();
-    }
-
-    /**
-     * @dev see {ERC721LimitableMint.sol}
-     */
-    function maxMintCount() external view onlyOwner returns (uint256) {
-        return _getMaxMintCount();
-    }
-
-    /**
-     * @dev see {ERC721LimitableMint.sol}
-     */
-    function maxMintCountPerAddress() external view onlyOwner returns (uint256) {
-        return _getMaxMintCountPerAddress();
     }
 
     /**

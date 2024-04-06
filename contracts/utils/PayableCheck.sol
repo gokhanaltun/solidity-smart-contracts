@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.20;
 
 import "../interfaces/errors/IPaymentErrors.sol";
 
@@ -57,7 +57,7 @@ abstract contract PayableCheck is IPaymentErrors{
      * @dev Internal function to get the value of the current payment.
      * @return The value of the current payment.
      */
-    function _msgValue() private returns(uint256){
+    function _msgValue() private view returns(uint256){
         return msg.value;
     }
 }

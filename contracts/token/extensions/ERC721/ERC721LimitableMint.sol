@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/utils/Context.sol";
+import "../../../interfaces/errors/ERC721LimitableMintErrors.sol";
 
 /**
  * @dev This abstract contract provides functionality for limiting the minting of ERC721 tokens.
  */
-abstract contract ERC721LimitableMint is Context {
+abstract contract ERC721LimitableMint is ERC721LimitableMintErrors, Context {
     uint256 private _currentMintCount; // The current count of minted tokens
     uint256 private _maxMintCount; // The maximum allowed mint count for this contract
     uint256 private _maxMintCountPerAddress; // The maximum allowed mint count per address
@@ -16,10 +17,9 @@ abstract contract ERC721LimitableMint is Context {
      * @dev Modifier to check if the maximum mint count per address has been reached.
      */
     modifier maxMintCountPerAddressCheck() {
-        require(
-            _mintedTokensByAddress[_msgSender()] < _maxMintCountPerAddress,
-            "Max Mint Count Per Address Error"
-        );
+        if (_mintedTokensByAddress[_msgSender()] >= _maxMintCountPerAddress) {
+            revert AddressMintLimitReached(_msgSender());
+        }
         _;
     }
 
@@ -27,7 +27,9 @@ abstract contract ERC721LimitableMint is Context {
      * @dev Modifier to check if the maximum mint count for this contract has been reached.
      */
     modifier maxMintCountCheck() {
-        require(_currentMintCount < _maxMintCount, "Sold Out Error");
+        if (_currentMintCount >= _maxMintCount) {
+            revert MaxTotalSupplyReached(_msgSender());
+        }
         _;
     }
 
@@ -41,7 +43,7 @@ abstract contract ERC721LimitableMint is Context {
     /**
      * @dev Internal function to update minted tokens count by address.
      */
-    function _updatemintedTokensByAddress() internal virtual {
+    function _updateMintedTokensByAddress() internal virtual {
         _mintedTokensByAddress[_msgSender()]++;
     }
 
@@ -49,7 +51,7 @@ abstract contract ERC721LimitableMint is Context {
      * @dev Internal function to set the maximum mint count for this contract.
      * @param count_ The maximum mint count to set.
      */
-    function _setMaxMintCount(uint256 count_) internal {
+    function _setMaxMintCount(uint256 count_) internal virtual {
         _maxMintCount = count_;
     }
 
@@ -57,7 +59,10 @@ abstract contract ERC721LimitableMint is Context {
      * @dev Internal function to set the maximum mint count per address for this contract.
      * @param count_ The maximum mint count per address to set.
      */
-    function _setMaxMintCountPerAddress(uint256 count_) internal {
+    function _setMaxMintCountPerAddress(uint256 count_) internal virtual {
+        if (count_ > _maxMintCount){
+            revert MaxMintLimitPerAddressExceedsTotalSupply(_maxMintCount, count_);
+        }
         _maxMintCountPerAddress = count_;
     }
 
@@ -65,21 +70,21 @@ abstract contract ERC721LimitableMint is Context {
      * @dev Public function to get the maximum mint count for this contract.
      * @return return the maximum mint count
      */
-    function _getMaxMintCount() internal view returns (uint256) {
+    function getMaxMintCount() public view virtual returns (uint256) {
         return _maxMintCount;
     }
 
     /**
      * @dev Public function to get the maximum mint count per address for this contract.
      */
-    function _getMaxMintCountPerAddress() internal view returns (uint256) {
+    function getMaxMintCountPerAddress() public view virtual returns (uint256) {
         return _maxMintCountPerAddress;
     }
 
     /**
      * @dev Internal function to get the current mint count for this contract.
      */
-    function _getCurrentMintCount() internal view returns (uint256) {
+    function getCurrentMintCount() public view virtual returns (uint256) {
         return _currentMintCount;
     }
 }
