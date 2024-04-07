@@ -1,7 +1,6 @@
 /**
  * WARNING: This contract is currently in development and all tests have not yet been completed.
  * Therefore, it is not recommended to use it in production environments.
- * The contract starts minting NFTs with ID = 1. You should adjust your NFT metadata files accordingly.
  */
 
 // SPDX-License-Identifier: MIT
@@ -13,6 +12,9 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "../extensions/ERC721/ERC721LimitableMint.sol";
 import "../../utils/PayableCheck.sol";
 
+/**
+ * @dev The contract starts minting NFTs with ID = 1. You should adjust your NFT metadata files accordingly.
+ */
 contract AdvancedPublicMintERC721 is
     ERC721,
     ERC721LimitableMint,
