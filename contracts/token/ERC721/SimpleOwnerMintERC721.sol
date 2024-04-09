@@ -1,5 +1,5 @@
 /**
-    !Disclaimer!
+    !Warning!
     
     This contract is prepared for example purposes only.
     Please evaluate these codes according to your own needs and security requirements before using them in production environments.

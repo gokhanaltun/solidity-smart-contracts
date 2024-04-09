@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/utils/Context.sol";
-import "../../../interfaces/errors/ERC721LimitableMintErrors.sol";
+import "../interfaces/errors/ERC721LimitableMintErrors.sol";
 
 /**
  * @dev This abstract contract provides functionality for limiting the minting of ERC721 tokens.
