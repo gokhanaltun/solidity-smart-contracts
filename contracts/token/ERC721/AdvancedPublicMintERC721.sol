@@ -10,7 +10,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "./extensions/ERC721LimitableMint.sol";
-import "../../utils/PayableCheck.sol";
+import "../../utils/PaymentCheck.sol";
 
 /**
  * @dev The contract starts minting NFTs with ID = 1. You should adjust your NFT metadata files accordingly.
@@ -18,7 +18,7 @@ import "../../utils/PayableCheck.sol";
 contract AdvancedPublicMintERC721 is
     ERC721,
     ERC721LimitableMint,
-    PayableCheck,
+    PaymentCheck,
     Ownable,
     ReentrancyGuard
 {

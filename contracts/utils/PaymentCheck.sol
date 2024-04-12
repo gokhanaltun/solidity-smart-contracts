@@ -6,7 +6,7 @@ import "../interfaces/errors/IPaymentErrors.sol";
 /**
  * @dev This abstract contract provides functionality for checking and handling payments.
  */
-abstract contract PayableCheck is IPaymentErrors{
+abstract contract PaymentCheck is IPaymentErrors{
     
     /**
      * @dev Internal function to check if the received payment is greater than zero.
