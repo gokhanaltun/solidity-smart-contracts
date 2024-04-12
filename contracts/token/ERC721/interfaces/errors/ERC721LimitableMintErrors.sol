@@ -20,7 +20,12 @@ interface ERC721LimitableMintErrors {
     /**
      * @dev Error triggered when the maximum mint limit per address exceeds the total supply limit.
      * @param expectedMax The expected maximum mint limit per address.
-     * @param current The current total supply.
      */
-    error MaxMintLimitPerAddressExceedsTotalSupply(uint256 expectedMax, uint256 current);
+    error MaxMintLimitPerAddressExceedsTotalSupply(uint256 expectedMax);
+
+    /**
+     * @dev Error triggered when the maximum mint limit smaller than max mint limit per address.
+     * @param expectedMin The expected minimum mint limit.
+     */
+    error MaxMintLimitCannotBeSmallerThanMaxMintLimitPerAddress(uint256 expectedMin);
 }

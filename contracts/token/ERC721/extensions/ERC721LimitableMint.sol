@@ -52,6 +52,9 @@ abstract contract ERC721LimitableMint is ERC721LimitableMintErrors, Context {
      * @param count_ The maximum mint count to set.
      */
     function _setMaxMintCount(uint256 count_) internal virtual {
+        if (count_ < _maxMintCountPerAddress) {
+            revert MaxMintLimitCannotBeSmallerThanMaxMintLimitPerAddress(_maxMintCountPerAddress);
+        }
         _maxMintCount = count_;
     }
 
@@ -61,7 +64,7 @@ abstract contract ERC721LimitableMint is ERC721LimitableMintErrors, Context {
      */
     function _setMaxMintCountPerAddress(uint256 count_) internal virtual {
         if (count_ > _maxMintCount){
-            revert MaxMintLimitPerAddressExceedsTotalSupply(_maxMintCount, count_);
+            revert MaxMintLimitPerAddressExceedsTotalSupply(_maxMintCount);
         }
         _maxMintCountPerAddress = count_;
     }
