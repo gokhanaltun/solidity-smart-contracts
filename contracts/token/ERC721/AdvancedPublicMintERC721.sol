@@ -8,7 +8,6 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "./extensions/ERC721LimitableMint.sol";
 import "../../utils/PaymentCheck.sol";
 
@@ -19,8 +18,7 @@ contract AdvancedPublicMintERC721 is
     ERC721,
     ERC721LimitableMint,
     PaymentCheck,
-    Ownable,
-    ReentrancyGuard
+    Ownable
 {
     string private _baseTokenURI;
     uint256 public mintAmount;
@@ -106,8 +104,8 @@ contract AdvancedPublicMintERC721 is
     /**
      * @dev Withdraws the contract balance to the owner's address.
      */
-    function withdraw() external onlyOwner nonReentrant {
-        _balanceMustNotBeInsufficient(address(this));
+    function withdraw() external onlyOwner {
+        _balanceMustNotBeZero(address(this));
         (bool success, ) = payable(owner()).call{value: address(this).balance}("");
         require(success, "Withdraw Error");
     }

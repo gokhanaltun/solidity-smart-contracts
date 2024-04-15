@@ -11,11 +11,10 @@ abstract contract PaymentCheck is IPaymentErrors{
     /**
      * @dev Internal function to check if the received payment is greater than zero.
      * If the payment is zero, it reverts with an `InvalidPayment` error.
-     * @param expectedPaymentAmount_ The expected payment amount.
      */
-    function _paymentMustBeGreaterThanZero(uint256 expectedPaymentAmount_) internal virtual {
+    function _paymentMustBeGreaterThanZero() internal virtual {
         if (_isZero(_msgValue())){
-            revert InvalidPayment(_msgValue(), expectedPaymentAmount_);
+            revert InvalidPayment(_msgValue());
         }
     }
 
@@ -26,7 +25,7 @@ abstract contract PaymentCheck is IPaymentErrors{
      */
     function _paymentMustBeEqualToExpectedPaymentAmount(uint256 expectedPaymentAmount_) internal virtual {
         if (_msgValue() != expectedPaymentAmount_){
-            revert InvalidPayment(_msgValue(), expectedPaymentAmount_);
+            revert InvalidPayment(_msgValue());
         }
     }
 
@@ -35,7 +34,7 @@ abstract contract PaymentCheck is IPaymentErrors{
      * If the balance is zero, it reverts with an `InsufficientBalance` error.
      * @param addr_ The address to check the balance.
      */
-    function _balanceMustNotBeInsufficient(address addr_) internal virtual {
+    function _balanceMustNotBeZero(address addr_) internal virtual {
         if(_isZero(addr_.balance)){
             revert InsufficientBalance(addr_);
         }
